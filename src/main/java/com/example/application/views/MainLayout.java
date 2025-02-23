@@ -1,6 +1,6 @@
 package com.example.application.views;
 
-import com.example.application.components.UserProfileDialog;
+import  com.example.application.components.UserProfileDialog;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -65,8 +65,13 @@ public class MainLayout extends AppLayout {
                 "Max Schwinghammer",
                 "🏆 Gold-Badge, 🥈 Silber-Badge"
         );
+
         dialog.open();}); // Dialog öffnen);
-        addToNavbar(true, toggle, viewTitle, profileLayout);
+        Span examTimer = new Span("Zeit bis zur Klausur: " +"00:45:00"); // Beispiel: 45 Minuten Countdown
+        examTimer.addClassNames(LumoUtility.FontSize.MEDIUM, LumoUtility.Margin.Right.MEDIUM, LumoUtility.Margin.Left.AUTO);
+        addToNavbar(true, toggle, viewTitle, examTimer, profileLayout);
+
+
     }
 
     private void addDrawerContent() {
@@ -90,7 +95,12 @@ public class MainLayout extends AppLayout {
                 nav.addItem(new SideNavItem(entry.title(), entry.path()));
             }
         });
-
+        // Manually add task-related menu items
+        nav.addItem(new SideNavItem("Multiple Choice", "multiple-choice"));
+        nav.addItem(new SideNavItem("Code Analysis", "code-analysis"));
+        nav.addItem(new SideNavItem("Fill in the Blanks", "fill-in-the-blanks"));
+        nav.addItem(new SideNavItem("Debugging", "debugging"));
+        nav.addItem(new SideNavItem("Programming Task", "programming-task"));
         return nav;
     }
 
