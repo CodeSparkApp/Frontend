@@ -6,7 +6,7 @@ public class MultipleChoiceTask extends Task {
     private List<String> options; // Liste der Antwortoptionen
     private String correctSolution; // Die richtige Antwort
 
-    public MultipleChoiceTask(String id, String description, int difficulty, List<String> options, String correctSolution) {
+    public MultipleChoiceTask(int id, String description, int difficulty, List<String> options, String correctSolution) {
         super(id, description, difficulty, "Multiple-Choice");
         this.options = options;
         this.correctSolution = correctSolution;

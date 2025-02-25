@@ -24,7 +24,7 @@ public class BigTask2View extends Composite<VerticalLayout> {
         h2.setText("Heading");
         h2.setWidth("max-content");
         textLarge.setText(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
+                "Lorem ipum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
         textLarge.setWidth("100%");
         textLarge.getStyle().set("font-size", "var(--lumo-font-size-xl)");
         checkboxGroup.setLabel("Checkbox Group");
