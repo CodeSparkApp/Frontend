@@ -96,11 +96,12 @@ public class MainLayout extends AppLayout {
             }
         });
         // Manually add task-related menu items
-        nav.addItem(new SideNavItem("Multiple Choice", "multiple-choice"));
-        nav.addItem(new SideNavItem("Code Analysis", "code-analysis"));
-        nav.addItem(new SideNavItem("Fill in the Blanks", "fill-in-the-blanks"));
-        nav.addItem(new SideNavItem("Debugging", "debugging"));
-        nav.addItem(new SideNavItem("Programming Task", "programming-task"));
+//        nav.addItem(new SideNavItem("Multiple Choice", "multiple-choice"));
+//        nav.addItem(new SideNavItem("Code Analysis", "code-analysis"));
+//        nav.addItem(new SideNavItem("Fill in the Blanks", "fill-in-the-blanks"));
+//        nav.addItem(new SideNavItem("Debugging", "debugging"));
+//        nav.addItem(new SideNavItem("Programming Task", "programming-task"));
+     //   nav.addItem(new SideNavItem("Story Mode", "story-mode"));
         return nav;
     }
 
