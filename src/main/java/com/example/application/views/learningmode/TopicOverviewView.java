@@ -13,12 +13,11 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import java.util.Arrays;
 import java.util.List;
 
-@PageTitle("Learning Mode - Topics")
+@PageTitle("Learning Mode - Topic Overview")
 @Route("learning-mode/topic-overview")
 public class TopicOverviewView extends VerticalLayout {
 private int overAllProgress;
     public TopicOverviewView() {
-        add(new H2("Topic Overview"));
 
         List<String> topics = Arrays.asList(
                 "Die Programmiersprache Java", "Entwicklungsumgebungen", "Java Packages",
@@ -40,12 +39,12 @@ private int overAllProgress;
         for (String topic : topics) {
             topicsContainer.add(createTopicCard(topic));
         }
-
-        add(topicsContainer);
-
         ProgressBar overallprogressBar = new ProgressBar(0, 100, getOverallProgress());
+        add(topicsContainer, overallprogressBar);
 
-        add(overallprogressBar);
+
+
+
     }
 
     private Div createTopicCard(String topicName) {
