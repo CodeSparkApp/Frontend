@@ -1,5 +1,6 @@
 package com.example.application.views.storymode;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -82,6 +83,7 @@ public class StoryModeView extends VerticalLayout {
     }
 
     private void openChapter(int topicId, String chapterTitle) {
-        getUI().ifPresent(ui -> ui.navigate("chapter/" + topicId + "/" + chapterTitle.replace(" ", "-")));
+        getUI().ifPresent(ui -> ui.navigate("story-mode/" + topicId + "/" + chapterTitle.replace(" ", "-")));
     }
+
 }

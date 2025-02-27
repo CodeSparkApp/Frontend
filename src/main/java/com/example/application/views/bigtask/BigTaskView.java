@@ -14,8 +14,8 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 
 @PageTitle("Big Task")
-@Route("")
-@Menu(order = 0, icon = "line-awesome/svg/pencil-ruler-solid.svg")
+//@Route("")
+//@Menu(order = 0, icon = "line-awesome/svg/pencil-ruler-solid.svg")
 public class BigTaskView extends Composite<VerticalLayout> {
 
     public BigTaskView() {

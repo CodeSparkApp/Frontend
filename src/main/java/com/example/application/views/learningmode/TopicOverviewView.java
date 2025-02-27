@@ -1,5 +1,6 @@
 package com.example.application.views.learningmode;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
@@ -40,7 +41,8 @@ private int overAllProgress;
             topicsContainer.add(createTopicCard(topic));
         }
         ProgressBar overallprogressBar = new ProgressBar(0, 100, getOverallProgress());
-        add(topicsContainer, overallprogressBar);
+        Button previousButton = new Button("Back", e -> navigatePreviousPage());
+        add(previousButton, topicsContainer, overallprogressBar);
 
 
 
@@ -57,6 +59,7 @@ private int overAllProgress;
                 .set("display", "flex")
                 .set("flex-direction", "column")
                 .set("align-items", "center");
+
 
         H2 title = new H2(topicName);
         title.addClassName(LumoUtility.FontSize.MEDIUM);
@@ -79,5 +82,8 @@ private int overAllProgress;
     }
     private int getOverallProgress() {
         return overAllProgress/100;
+    }
+    private void navigatePreviousPage() {
+        getUI().ifPresent(ui -> ui.navigate("/learning-mode"));
     }
 }

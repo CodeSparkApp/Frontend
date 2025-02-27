@@ -31,7 +31,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility.TextColor;
 
 @PageTitle("Dashboard")
 @Route("dashboard")
-@Menu(order = 3, icon = "line-awesome/svg/chart-area-solid.svg")
+//@Menu(order = 3, icon = "line-awesome/svg/chart-area-solid.svg")
 public class DashboardView extends Main {
 
     public DashboardView() {

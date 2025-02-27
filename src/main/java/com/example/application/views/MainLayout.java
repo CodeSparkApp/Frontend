@@ -5,10 +5,7 @@ import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.html.Footer;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.Header;
-import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.SvgIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -77,7 +74,9 @@ public class MainLayout extends AppLayout {
     private void addDrawerContent() {
         Span appName = new Span("CodeSpark");
         appName.addClassNames(LumoUtility.FontWeight.SEMIBOLD, LumoUtility.FontSize.LARGE);
-        Header header = new Header(appName);
+        Image logo = new Image("icons/logo.png","CodeSpark Logo");
+        logo.setWidth("50px");
+        Header header = new Header(appName, logo);
 
         Scroller scroller = new Scroller(createNavigation());
 
@@ -107,7 +106,7 @@ public class MainLayout extends AppLayout {
 
     private Footer createFooter() {
         Footer layout = new Footer();
-
+        layout.add(new Span("© 2025 CodeSpark - Alle Rechte vorbehalten."));
         return layout;
     }
 

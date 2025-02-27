@@ -34,7 +34,7 @@ import java.util.UUID;
 
 @PageTitle("Chat")
 @Route("chat")
-@Menu(order = 4, icon = "line-awesome/svg/comments.svg")
+//@Menu(order = 4, icon = "line-awesome/svg/comments.svg")
 public class ChatView extends HorizontalLayout {
 
     public static class ChatTab extends Tab {

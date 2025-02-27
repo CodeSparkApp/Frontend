@@ -71,9 +71,10 @@ public class ShortQuizView extends VerticalLayout {
     private void showResults() {
         removeAll();
         add(new H2("Quiz Completed!"));
-        nextButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate("learning-mode/topic-overview")));
+        Button continueButton = new Button("Continue");
+                continueButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate("learning-mode/topic-overview")));
         add(new Paragraph("You answered " + correctAnswers + " out of " + questions.size() + " correctly."));
-        add(nextButton);
+        add(continueButton);
     }
 
     private static class Question {

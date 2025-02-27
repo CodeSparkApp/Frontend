@@ -12,7 +12,7 @@ import com.vaadin.flow.router.Route;
 
 @PageTitle("Big Task2")
 @Route("2")
-@Menu(order = 1, icon = "line-awesome/svg/pencil-ruler-solid.svg")
+//@Menu(order = 1, icon = "line-awesome/svg/pencil-ruler-solid.svg")
 public class BigTask2View extends Composite<VerticalLayout> {
 
     public BigTask2View() {

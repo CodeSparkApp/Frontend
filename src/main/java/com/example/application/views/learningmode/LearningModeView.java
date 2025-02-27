@@ -9,7 +9,7 @@ import com.vaadin.flow.router.Route;
 
 @PageTitle("Learning Mode")
 @Route("learning-mode")
-@Menu(order = 2, icon = "line-awesome/svg/book-solid.svg")
+@Menu(order = 3, icon = "line-awesome/svg/book-solid.svg")
 public class LearningModeView extends VerticalLayout {
 
 //    private QuizService quizService = new QuizService();

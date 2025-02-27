@@ -17,7 +17,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 
 @PageTitle("My View")
 @Route("my-view")
-@Menu(order = 2, icon = "line-awesome/svg/pencil-ruler-solid.svg")
+@Menu(order = 4, icon = "line-awesome/svg/pencil-ruler-solid.svg")
 public class MyViewView extends Composite<VerticalLayout> {
 
     public MyViewView() {
