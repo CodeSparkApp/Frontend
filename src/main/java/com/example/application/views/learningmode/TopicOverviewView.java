@@ -25,10 +25,9 @@ private int overAllProgress;
                 "Primitive Datentypen", "Operatoren", "Kontrollstrukturen", "Arrays",
                 "Objektorientierung", "Klassen und Objekte", "Strings und Wrapperklassen",
                 "Methoden", "Dokumentation", "Vererbung", "Exceptions", "Input / Output",
-                "Überblick Sommersemester", "Grafische Benutzeroberflächen mit Swing",
-                "Abstrakte Klassen, Interfaces", "Innere Klassen", "Events", "Java FX",
-                "Zeichnen", "Datenstrukturen", "Aufzählungstypen", "Threads", "Java 8",
-                "XML", "JSON", "JUnit-Tests", "Maven"
+                "Grafische Benutzeroberflächen mit Swing","Abstrakte Klassen, Interfaces",
+                "Innere Klassen", "Events", "Java FX", "Zeichnen", "Datenstrukturen",
+                "Aufzählungstypen", "Threads", "Java 8","XML", "JSON", "JUnit-Tests", "Maven"
         );
 
         Div topicsContainer = new Div();

@@ -31,7 +31,7 @@ public class ReadMeView extends Composite<VerticalLayout> {
                 "- Vielfältige Aufgabentypen wie Programmieraufgaben, Debugging und Multiple-Choice.");
 
         H2 contactTitle = new H2("📩 Kontakt & Feedback");
-        Paragraph contact = new Paragraph("Haben Sie Fragen oder Anregungen? Kontaktieren Sie uns unter support@lernplattform.de.");
+        Paragraph contact = new Paragraph("Haben Sie Fragen oder Anregungen? Kontaktieren Sie uns unter support.codespark@.gmail.com.");
 
         getContent().add(title, intro, featuresTitle, features, navigationTitle, navigation, contactTitle, contact);
     }
