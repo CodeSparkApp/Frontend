@@ -1,4 +1,5 @@
 package com.example.application.components;
+import com.example.application.data.User;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Image;
@@ -6,15 +7,12 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.server.StreamResource;
-import com.example.application.data.user;
 
 public class UserProfileDialog extends Dialog {
     public UserProfileDialog(int userID,String userName, String avatarUrl, String displayName, String badges) {
-        user User = new user();
-        //User = user.getUserByUserID(userID);
+        User user = new User();
+        user = User.getUserByUserID(userID);
         // setHeaderTitle(user.getUserByUserID(userID).getUserName());
         setHeaderTitle(userName);
 
