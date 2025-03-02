@@ -1,36 +1,52 @@
 package com.example.application.data;
 
-import com.vaadin.flow.component.template.Id;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class User {
-    @jakarta.persistence.Id
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
     private String email;
-    private String avatar; // Optional, kann als URL zu einem Bild gespeichert werden.
-    private LocalDateTime registrationDate;
+    private String avatar; // Optional, als URL zu einem Bild gespeichert.
 
-//    @OneToMany(mappedBy = "user")
-//    private List<UserTaskProgress> userTaskProgress;
-//    @OneToMany(mappedBy = "user")
-//    private List<UserChapterProgress> userChapterProgresses;
+    @Lob
+    private String storyProgress; // JSON oder String für den Story Mode Fortschritt.
 
-    @OneToOne
-    private UserExamTimer userExamTimer;
+    @Lob
+    private String learningProgress; // JSON oder String für den Learning Mode Fortschritt.
 
     @ElementCollection
-    private Set<String> badges; // Optional: Set von Badges oder Referenz zu einer Badge-Tabelle
+    private Set<String> badges; // Set von Badges.
+
+    private LocalDate examDate; // Datum der Prüfung.
+
+    public User(int id, String name, String mail, String avatar, String story_progress, String learning_progress, String badges, Object exam_date) {
+        this.id = (long) id;
+        this.username = name;
+        this.email = mail;
+        this.avatar = avatar;
+        this.storyProgress = story_progress;
+        this.learningProgress = learning_progress;
+        this.badges = new HashSet<>();
+
+    }
+
+    public User() {
+
+    }
 
     public static User getUserByUserID(int userID) {
         return new User();
     }
+
+    // Getter und Setter
 
     public Long getId() {
         return id;
@@ -64,28 +80,20 @@ public class User {
         this.avatar = avatar;
     }
 
-    public LocalDateTime getRegistrationDate() {
-        return registrationDate;
+    public String getStoryProgress() {
+        return storyProgress;
     }
 
-    public void setRegistrationDate(LocalDateTime registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-//
-//    public List<UserTaskProgress> getUserTaskProgress() {
-//        return userTaskProgress;
-//    }
-//
-//    public void setUserTaskProgress(List<UserTaskProgress> userTaskProgress) {
-//        this.userTaskProgress = userTaskProgress;
-//    }
-
-    public UserExamTimer getUserExamTimer() {
-        return userExamTimer;
+    public void setStoryProgress(String storyProgress) {
+        this.storyProgress = storyProgress;
     }
 
-    public void setUserExamTimer(UserExamTimer userExamTimer) {
-        this.userExamTimer = userExamTimer;
+    public String getLearningProgress() {
+        return learningProgress;
+    }
+
+    public void setLearningProgress(String learningProgress) {
+        this.learningProgress = learningProgress;
     }
 
     public Set<String> getBadges() {
@@ -96,17 +104,11 @@ public class User {
         this.badges = badges;
     }
 
-//    public List<UserChapterProgress> getUserChapterProgresses() {
-//        return userChapterProgresses;
-//    }
-//
-//    public void setUserChapterProgresses(List<UserChapterProgress> userChapterProgresses) {
-//        this.userChapterProgresses = userChapterProgresses;
-//    }
-    public Integer getStoryPoints() {
-        return 1720;
+    public LocalDate getExamDate() {
+        return examDate;
     }
 
-// Getter und Setter
+    public void setExamDate(LocalDate examDate) {
+        this.examDate = examDate;
+    }
 }
-

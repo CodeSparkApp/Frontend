@@ -23,7 +23,7 @@ public class MyViewView extends Composite<VerticalLayout> {
         Grid<User> overallGrid = new Grid<>(User.class, false);
         overallGrid.addColumn(User::getUsername).setHeader("Rank");
         overallGrid.addColumn(User::getUsername).setHeader("Username");
-        overallGrid.addColumn(User::getStoryPoints).setHeader("Points");
+        overallGrid.addColumn(User::getStoryProgress).setHeader("Points");
 
 
 

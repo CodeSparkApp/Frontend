@@ -1,9 +1,13 @@
 package com.example.application.views;
 
-import  com.example.application.components.UserProfileDialog;
+import com.example.application.components.UserProfileDialog;
+import com.example.application.services.ExamTimerService;
+import com.example.application.data.User;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.SvgIcon;
@@ -11,6 +15,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.Scroller;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.popover.Popover;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
@@ -22,21 +27,25 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import java.util.List;
 
-/**
- * The main view is a top-level placeholder for other views.
- */
 @Layout
 @AnonymousAllowed
 public class MainLayout extends AppLayout {
 
     private H1 viewTitle;
+    private Span examTimer;
+    private final ExamTimerService examTimerService = new ExamTimerService();
+    private final User currentUser;
 
     public MainLayout() {
+        this.currentUser = fetchCurrentUser(); // Methode, um aktuellen Benutzer zu laden
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
     }
 
+    private User fetchCurrentUser() {
+        return new User(1, "MaxSchwinghammer", "max@example.com", "https://tenor.com/view/epic-gif-spiderman-farts-farting-fart-gif-26232700", "{}", "{}", "🏆 Gold-Badge, 🥈 Silber-Badge", null);
+    }
 
     private void addHeaderContent() {
         DrawerToggle toggle = new DrawerToggle();
@@ -45,36 +54,30 @@ public class MainLayout extends AppLayout {
         viewTitle = new H1();
         viewTitle.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
 
-        Avatar avatar = new Avatar("Max Schwinghammer");
-        avatar.setImage("https://tenor.com/view/epic-gif-spiderman-farts-farting-fart-gif-26232700"); // Platzhalter für das Profilbild
-        Span userName = new Span("Max Schwinghammer");
-
-
+        Avatar avatar = new Avatar(currentUser.getUsername());
+        avatar.setImage(currentUser.getAvatar());
+        Span userName = new Span(currentUser.getUsername());
 
         HorizontalLayout profileLayout = new HorizontalLayout(avatar, userName);
         profileLayout.setAlignItems(FlexComponent.Alignment.CENTER);
         profileLayout.addClassNames(LumoUtility.Margin.Left.AUTO, LumoUtility.Padding.SMALL);
 
-        profileLayout.addClickListener(spanClickEvent ->  {UserProfileDialog dialog = new UserProfileDialog(
-                1,
-                "MaxSchwinghammer",
-                "https://tenor.com/view/epic-gif-spiderman-farts-farting-fart-gif-26232700",
-                "Max Schwinghammer",
-                "🏆 Gold-Badge, 🥈 Silber-Badge"
-        );
+        profileLayout.addClickListener(spanClickEvent -> {
+            UserProfileDialog dialog = new UserProfileDialog(currentUser);
+            dialog.open();
+        });
 
-        dialog.open();}); // Dialog öffnen);
-        Span examTimer = new Span("Zeit bis zur Klausur: " +"00:45:00"); // Beispiel: 45 Minuten Countdown
+        examTimer = new Span("Klausurtermin festlegen");
         examTimer.addClassNames(LumoUtility.FontSize.MEDIUM, LumoUtility.Margin.Right.MEDIUM, LumoUtility.Margin.Left.AUTO);
+        examTimer.addClickListener(event -> examTimerService.openExamTimerDialog(examTimer));
+
         addToNavbar(true, toggle, viewTitle, examTimer, profileLayout);
-
-
     }
 
     private void addDrawerContent() {
         Span appName = new Span("CodeSpark");
         appName.addClassNames(LumoUtility.FontWeight.SEMIBOLD, LumoUtility.FontSize.LARGE);
-        Image logo = new Image("icons/logo.png","CodeSpark Logo");
+        Image logo = new Image("icons/logo.png", "CodeSpark Logo");
         logo.setWidth("50px");
         Header header = new Header(appName, logo);
 
@@ -94,13 +97,6 @@ public class MainLayout extends AppLayout {
                 nav.addItem(new SideNavItem(entry.title(), entry.path()));
             }
         });
-        // Manually add task-related menu items
-//        nav.addItem(new SideNavItem("Multiple Choice", "multiple-choice"));
-//        nav.addItem(new SideNavItem("Code Analysis", "code-analysis"));
-//        nav.addItem(new SideNavItem("Fill in the Blanks", "fill-in-the-blanks"));
-//        nav.addItem(new SideNavItem("Debugging", "debugging"));
-//        nav.addItem(new SideNavItem("Programming Task", "programming-task"));
-     //   nav.addItem(new SideNavItem("Story Mode", "story-mode"));
         return nav;
     }
 
