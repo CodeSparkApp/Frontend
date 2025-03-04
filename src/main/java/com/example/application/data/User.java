@@ -23,31 +23,33 @@ public class User {
     private String learningProgress; // JSON oder String für den Learning Mode Fortschritt.
 
     @ElementCollection
-    private Set<String> badges; // Set von Badges.
+    private Set<String> badges = new HashSet<>(); // Set von Badges.
 
     private LocalDate examDate; // Datum der Prüfung.
 
-    public User(int id, String name, String mail, String avatar, String story_progress, String learning_progress, String badges, Object exam_date) {
-        this.id = (long) id;
-        this.username = name;
-        this.email = mail;
+    // Konstruktor mit Parametern (für die Datenbank oder manuelle Initialisierung)
+    public User(String username, String email, String avatar, String storyProgress, String learningProgress, Set<String> badges, LocalDate examDate) {
+        this.username = username;
+        this.email = email;
         this.avatar = avatar;
-        this.storyProgress = story_progress;
-        this.learningProgress = learning_progress;
-        this.badges = new HashSet<>();
-
+        this.storyProgress = storyProgress;
+        this.learningProgress = learningProgress;
+        this.badges = badges != null ? badges : new HashSet<>(); // Vermeidung von NullPointerException
+        this.examDate = examDate;
     }
 
+    // Standardkonstruktor (für JPA)
     public User() {
-
     }
 
-    public static User getUserByUserID(int userID) {
-        return new User();
+    // Beispielmethode zum Abrufen eines Users (basierend auf userID)
+    public static User getUserByUserID(Long userID) {
+        // Hier könnte eine Datenbankabfrage oder ein mockup-Code stehen
+        // Beispielhaft:
+        return new User("sampleUser", "sample@example.com", "avatarUrl", "storyProgressData", "learningProgressData", new HashSet<>(), LocalDate.now());
     }
 
     // Getter und Setter
-
     public Long getId() {
         return id;
     }
