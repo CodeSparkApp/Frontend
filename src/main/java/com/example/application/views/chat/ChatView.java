@@ -1,10 +1,6 @@
 package com.example.application.views.chat;
 
-import com.vaadin.collaborationengine.CollaborationAvatarGroup;
-import com.vaadin.collaborationengine.CollaborationMessageInput;
-import com.vaadin.collaborationengine.CollaborationMessageList;
-import com.vaadin.collaborationengine.MessageManager;
-import com.vaadin.collaborationengine.UserInfo;
+import com.vaadin.collaborationengine.*;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.html.Aside;
 import com.vaadin.flow.component.html.H3;
@@ -16,20 +12,10 @@ import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.Tabs.Orientation;
-import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.theme.lumo.LumoUtility.AlignItems;
-import com.vaadin.flow.theme.lumo.LumoUtility.Background;
-import com.vaadin.flow.theme.lumo.LumoUtility.BoxSizing;
-import com.vaadin.flow.theme.lumo.LumoUtility.Display;
-import com.vaadin.flow.theme.lumo.LumoUtility.Flex;
-import com.vaadin.flow.theme.lumo.LumoUtility.FlexDirection;
-import com.vaadin.flow.theme.lumo.LumoUtility.JustifyContent;
-import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
-import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;
-import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
-import com.vaadin.flow.theme.lumo.LumoUtility.Width;
+import com.vaadin.flow.theme.lumo.LumoUtility.*;
+
 import java.util.UUID;
 
 @PageTitle("Chat")

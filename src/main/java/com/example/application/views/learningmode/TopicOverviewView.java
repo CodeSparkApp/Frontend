@@ -1,5 +1,6 @@
 package com.example.application.views.learningmode;
 
+import com.example.application.components.GamifiedProgressBar;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
@@ -17,7 +18,7 @@ import java.util.List;
 @PageTitle("Learning Mode - Topic Overview")
 @Route("learning-mode/topic-overview")
 public class TopicOverviewView extends VerticalLayout {
-private int overAllProgress;
+private double overAllProgress;
     public TopicOverviewView() {
 
         List<String> topics = Arrays.asList(
@@ -39,7 +40,7 @@ private int overAllProgress;
         for (String topic : topics) {
             topicsContainer.add(createTopicCard(topic));
         }
-        ProgressBar overallprogressBar = new ProgressBar(0, 100, getOverallProgress());
+        GamifiedProgressBar overallprogressBar = new GamifiedProgressBar(0, 100, getOverallProgress());
         Button previousButton = new Button("Back", e -> navigatePreviousPage());
         add(previousButton, topicsContainer, overallprogressBar);
 
@@ -80,7 +81,7 @@ private int overAllProgress;
         dialog.open();
     }
     private int getOverallProgress() {
-        return overAllProgress/100;
+        return  ((int) (overAllProgress))/100;
     }
     private void navigatePreviousPage() {
         getUI().ifPresent(ui -> ui.navigate("/learning-mode"));

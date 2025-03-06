@@ -1,33 +1,41 @@
 package com.example.application.views.achievements;
 
+import com.example.application.components.GamifiedProgressBar;
+import com.example.application.components.OwnProgressBar;
 import com.vaadin.flow.component.Text;
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.Menu;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
 import java.util.List;
 
 @Route("/achievements")
+@PageTitle("Achievements")
+@Menu(order = 5, icon = "line-awesome/svg/trophy-solid.svg")
 public class AchievementsView extends VerticalLayout {
-
+    Icon icon = VaadinIcon.TROPHY.create();
     public AchievementsView() {
         List<Badge> badges = BadgeService.getBadges();
         double earnedPercentage = BadgeService.getEarnedPercentage();
 
-        // Fortschrittsanzeige mit visuellem Balken
-        Div progressContainer = new Div();
-        progressContainer.getStyle().set("width", "100%").set("background", "#eee").set("border-radius", "10px").set("margin-bottom", "20px");
 
-        Div progressBar = new Div();
-        progressBar.getStyle().set("width", earnedPercentage + "%").set("background", "#4CAF50").set("height", "20px").set("border-radius", "10px");
-        progressContainer.add(progressBar);
+
 
         Span progressText = new Span("Achievements: " + String.format("%.0f", earnedPercentage) + "%");
         progressText.getStyle().set("font-weight", "bold").set("margin-bottom", "10px");
 
-        add(progressText, progressContainer);
+        add(progressText);
+        OwnProgressBar ownProgressBar = new OwnProgressBar();
+        ownProgressBar.setProgress(earnedPercentage);
+        add(ownProgressBar);
+        add(new GamifiedProgressBar(0, 100, earnedPercentage));
+
 
         // Anzeige der Badges
         for (Badge badge : badges) {
