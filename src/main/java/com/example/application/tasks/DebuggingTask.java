@@ -4,8 +4,8 @@ public class DebuggingTask extends Task {
     private String faultyCode; // The code with errors
     private String correctionHint; // Hint for correction
 
-    public DebuggingTask(int id, String description, int difficulty, String faultyCode, String correctionHint) {
-        super(id, description, difficulty, "Debugging");
+    public DebuggingTask(int id, String description, String faultyCode, String correctionHint) {
+        super(id, description, "Debugging");
         this.faultyCode = faultyCode;
         this.correctionHint = correctionHint;
     }

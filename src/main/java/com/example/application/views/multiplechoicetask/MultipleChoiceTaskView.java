@@ -27,7 +27,7 @@ public class MultipleChoiceTaskView extends Composite<VerticalLayout> {
         options.add("Option 1");
         options.add("Option 2");
         options.add("Option 3");
-        MultipleChoiceTask multipleChoiceTask = new MultipleChoiceTask(1,"first task", 3, options,"solution");
+        MultipleChoiceTask multipleChoiceTask = new MultipleChoiceTask(1,"first task", options,"solution");
 
         CheckboxGroup<String> checkboxGroup = new CheckboxGroup<>();
         checkboxGroup.setLabel("Select your answer(s):");

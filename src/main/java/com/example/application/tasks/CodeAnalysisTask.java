@@ -4,8 +4,8 @@ public class CodeAnalysisTask extends Task {
     private String codeSnippet; // The code snippet to analyze
     private String expectedBehavior; // Expected behavior description
 
-    public CodeAnalysisTask(int id, String description, int difficulty, String codeSnippet, String expectedBehavior) {
-        super(id, description, difficulty, "Code Analysis");
+    public CodeAnalysisTask(int id, String description, String codeSnippet, String expectedBehavior) {
+        super(id, description,"Code Analysis");
         this.codeSnippet = codeSnippet;
         this.expectedBehavior = expectedBehavior;
     }

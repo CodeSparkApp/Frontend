@@ -123,24 +123,10 @@ public class ChatView extends HorizontalLayout {
         VerticalLayout chatContainer = new VerticalLayout();
         chatContainer.addClassNames(Flex.AUTO, Overflow.HIDDEN);
 
-        Aside side = new Aside();
-        side.addClassNames(Display.FLEX, FlexDirection.COLUMN, Flex.GROW_NONE, Flex.SHRINK_NONE, Background.CONTRAST_5);
-        side.setWidth("18rem");
-        Header header = new Header();
-        header.addClassNames(Display.FLEX, FlexDirection.ROW, Width.FULL, AlignItems.CENTER, Padding.MEDIUM,
-                BoxSizing.BORDER);
-        H3 channels = new H3("Channels");
-        channels.addClassNames(Flex.GROW, Margin.NONE);
-        CollaborationAvatarGroup avatarGroup = new CollaborationAvatarGroup(userInfo, "chat");
-        avatarGroup.setMaxItemsVisible(4);
-        avatarGroup.addClassNames(Width.AUTO);
 
-        header.add(channels, avatarGroup);
-
-        side.add(header, tabs);
 
         chatContainer.add(list, input);
-        add(chatContainer, side);
+        add(chatContainer);
         setSizeFull();
         expand(list);
 
