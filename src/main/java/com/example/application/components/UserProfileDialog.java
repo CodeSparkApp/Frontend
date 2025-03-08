@@ -2,6 +2,7 @@ package com.example.application.components;
 
 import com.example.application.data.User;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Image;
@@ -15,6 +16,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MultiFileMemoryBuffer;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import java.io.InputStream;
@@ -87,12 +89,26 @@ public class UserProfileDialog extends Dialog {
         mainLayout.setSpacing(true);
         mainLayout.setPadding(true);
 
+        //Button zum ausloggen
+        Button logoutButton = new Button("Logout", event -> {
+            VaadinSession.getCurrent().setAttribute("logged_in", false);
+            VaadinSession.getCurrent().setAttribute("access_token", null);
+            VaadinSession.getCurrent().setAttribute("refresh_token", null);
+
+            UI.getCurrent().getPage().reload(); // Neuladen der gesamten Seite
+            Notification notification = new Notification("" + VaadinSession.getCurrent().getAttribute("access_token"));
+            notification.open();
+
+        });
+
         // Button für weitere Optionen
         Button closeButton = new Button("Schließen", event -> close());
 
 
+
         // Dialog-Inhalt hinzufügen
         add(mainLayout);
+        getFooter().add(logoutButton);
         getFooter().add(closeButton);
     }
     private void openImageUploadDialog() {

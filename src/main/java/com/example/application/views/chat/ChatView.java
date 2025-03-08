@@ -2,9 +2,7 @@ package com.example.application.views.chat;
 
 import com.vaadin.collaborationengine.*;
 import com.vaadin.flow.component.AttachEvent;
-import com.vaadin.flow.component.html.Aside;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.Header;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -20,7 +18,6 @@ import java.util.UUID;
 
 @PageTitle("Chat")
 @Route("chat")
-//@Menu(order = 4, icon = "line-awesome/svg/comments.svg")
 public class ChatView extends HorizontalLayout {
 
     public static class ChatTab extends Tab {
@@ -74,17 +71,14 @@ public class ChatView extends HorizontalLayout {
             new ChatInfo("casual", 0)};
     private ChatInfo currentChat = chats[0];
     private Tabs tabs;
+    private Dialog chatDialog;
 
     public ChatView() {
         addClassNames("chat-view", Width.FULL, Display.FLEX, Flex.AUTO);
         setSpacing(false);
 
         // UserInfo is used by Collaboration Engine and is used to share details
-        // of users to each other to able collaboration. Replace this with
-        // information about the actual user that is logged, providing a user
-        // identifier, and the user's real name. You can also provide the users
-        // avatar by passing an url to the image as a third parameter, or by
-        // configuring an `ImageProvider` to `avatarGroup`.
+        // of users to each other to be able to collaborate.
         UserInfo userInfo = new UserInfo(UUID.randomUUID().toString(), "Steve Lange");
 
         tabs = new Tabs();
@@ -112,23 +106,23 @@ public class ChatView extends HorizontalLayout {
         list.setSizeFull();
 
         // `CollaborationMessageInput is a textfield and button, to be able to
-        // submit new messages. To avoid having to set the same info into both
-        // the message list and message input, the input takes in the list as an
-        // constructor argument to get the information from there.
+        // submit new messages.
         CollaborationMessageInput input = new CollaborationMessageInput(list);
         input.setWidthFull();
 
         // Layouting
-
         VerticalLayout chatContainer = new VerticalLayout();
         chatContainer.addClassNames(Flex.AUTO, Overflow.HIDDEN);
-
-
-
         chatContainer.add(list, input);
-        add(chatContainer);
-        setSizeFull();
-        expand(list);
+
+        // Create the Dialog for the chat
+        chatDialog = new Dialog();
+        chatDialog.add(new VerticalLayout(tabs, chatContainer));
+        chatDialog.setWidth("500px");
+        chatDialog.setHeight("600px");
+
+        // Open the dialog when needed (e.g. on a button click or specific event)
+        chatDialog.open();
 
         // Change the topic id of the chat when a new tab is selected
         tabs.addSelectedChangeListener(event -> {
@@ -136,6 +130,8 @@ public class ChatView extends HorizontalLayout {
             currentChat.resetUnread();
             list.setTopic(currentChat.getCollaborationTopic());
         });
+
+        setSizeFull();
     }
 
     private ChatTab createTab(ChatInfo chat) {
@@ -164,5 +160,4 @@ public class ChatView extends HorizontalLayout {
     private void setMobile(boolean mobile) {
         tabs.setOrientation(mobile ? Orientation.HORIZONTAL : Orientation.VERTICAL);
     }
-
 }
