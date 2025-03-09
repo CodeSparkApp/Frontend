@@ -4,9 +4,10 @@ import com.example.application.components.ChatInputDialog;
 import com.example.application.components.LoginDialog;
 import com.example.application.components.RegisterDialog;
 import com.example.application.components.UserProfileDialog;
+import com.example.application.data.LoginorRegister;
 import com.example.application.data.User;
 import com.example.application.services.ExamTimerService;
-import com.vaadin.flow.component.Component;
+import com.example.application.services.TokenManager;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -27,8 +28,6 @@ import com.vaadin.flow.server.menu.MenuConfiguration;
 import com.vaadin.flow.server.menu.MenuEntry;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
-import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -76,46 +75,42 @@ public class MainLayout extends AppLayout {
 
     private HorizontalLayout getAccountLayout() {
         Button loginButton = new Button("Login");
-        loginButton.addClickListener(buttonClickEvent -> getUserLoginStatus(true));
+        loginButton.addClickListener(buttonClickEvent -> getUserLoginStatus(LoginorRegister.LOGGED_OUT));
 
         Span or = new Span("or");
         or.getStyle().setPadding("10px");
 
         Button registerButton = new Button("Register");
+        registerButton.addClickListener(buttonClickEvent -> getUserLoginStatus(LoginorRegister.REGISTERED));
 
-        registerButton.addClickListener(buttonClickEvent -> getUserLoginStatus(false));
-        Span AccountOptions = new Span(loginButton,or,registerButton);
+        Span accountOptions = new Span(loginButton, or, registerButton);
 
         Avatar avatar = new Avatar(currentUser.getUsername());
         avatar.setImage(currentUser.getAvatar());
         Span userName = new Span(currentUser.getUsername());
 
-         HorizontalLayout profileLayout = new HorizontalLayout();
+        HorizontalLayout profileLayout;
 
-         if (VaadinSession.getCurrent().getAttribute("logged_in") != null) {
-             Boolean loggedIn = (Boolean) VaadinSession.getCurrent().getAttribute("logged_in");
+        if (TokenManager.isUserLoggedIn()) {
+            Boolean loggedIn = (Boolean) VaadinSession.getCurrent().getAttribute("logged_in");
 
-             if (!loggedIn) {
-                 profileLayout = new HorizontalLayout(AccountOptions);
-                 profileLayout.setAlignItems(FlexComponent.Alignment.CENTER);
-                 profileLayout.addClassNames(LumoUtility.Margin.Left.AUTO, LumoUtility.Padding.SMALL);
-             } else {
-                 profileLayout = new HorizontalLayout(avatar, userName);
-                 profileLayout.setAlignItems(FlexComponent.Alignment.CENTER);
-                 profileLayout.addClassNames(LumoUtility.Margin.Left.AUTO, LumoUtility.Padding.SMALL);
-                 profileLayout.addClickListener(spanClickEvent -> {
-                     Dialog dialog = new Dialog();
-                     //dialog = getUserLoginStatus();
-                     getUserLoginStatus(false);
+            if (loggedIn) {
+                profileLayout = new HorizontalLayout(avatar, userName);
+                profileLayout.setAlignItems(FlexComponent.Alignment.CENTER);
+                profileLayout.addClassNames(LumoUtility.Margin.Left.AUTO, LumoUtility.Padding.SMALL);
+                profileLayout.addClickListener(spanClickEvent -> getUserLoginStatus(LoginorRegister.LOGGED_IN));
+            } else {
+                profileLayout = new HorizontalLayout(accountOptions);
+                profileLayout.setAlignItems(FlexComponent.Alignment.CENTER);
+                profileLayout.addClassNames(LumoUtility.Margin.Left.AUTO, LumoUtility.Padding.SMALL);
+            }
+        } else {
+            profileLayout = new HorizontalLayout(accountOptions);
+            profileLayout.setAlignItems(FlexComponent.Alignment.CENTER);
+            profileLayout.addClassNames(LumoUtility.Margin.Left.AUTO, LumoUtility.Padding.SMALL);
+        }
 
-                 });
-             }
-             return profileLayout;
-         }
-         else {
-             return new HorizontalLayout(new Text("Error"));
-         }
-
+        return profileLayout;
     }
 
     private void addDrawerContent() {
@@ -126,8 +121,12 @@ public class MainLayout extends AppLayout {
         Header header = new Header(appName, logo);
 
         Scroller scroller = new Scroller(createNavigation());
-
-        addToDrawer(header, scroller, createFooter());
+        Button aiAssistantButton = new Button("AI Assistant");
+        aiAssistantButton.addClickListener(buttonClickEvent -> {
+            ChatInputDialog chatInputDialog = new ChatInputDialog();
+            chatInputDialog.open();
+        });
+        addToDrawer(header, scroller, aiAssistantButton, createFooter());
     }
 
     private SideNav createNavigation() {
@@ -159,20 +158,16 @@ public class MainLayout extends AppLayout {
     private String getCurrentPageTitle() {
         return MenuConfiguration.getPageHeader(getContent()).orElse("");
     }
-    private void getUserLoginStatus(Boolean loginOrRegister){
-       Boolean loggedIn = (Boolean) VaadinSession.getCurrent().getAttribute("logged_in");
-       Dialog dialog;
-       if(loggedIn){
+
+    private void getUserLoginStatus(LoginorRegister loginorRegister) {
+        Dialog dialog;
+        if (loginorRegister == LoginorRegister.LOGGED_IN) {
             dialog = new UserProfileDialog(currentUser);
-       }
-       else if (loginOrRegister){
-           dialog = new LoginDialog();
-       }
-       else {
-           dialog = new RegisterDialog();
-       }
-        //UserProfileDialog dialog = new UserProfileDialog(currentUser);
+        } else if (loginorRegister == LoginorRegister.LOGGED_OUT) {
+            dialog = new LoginDialog();
+        } else {
+            dialog = new RegisterDialog();
+        }
         dialog.open();
-        //return dialog;
     }
 }
