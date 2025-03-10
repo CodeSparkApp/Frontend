@@ -8,7 +8,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 
 @PageTitle("Chapter Overview")
-@Route("story-mode/:id/:chapterName") // Route mit Platzhaltern für Parameter
+//@Route("story-mode/:id/:chapterName") // Route mit Platzhaltern für Parameter
 public class ChapterOverviewView extends VerticalLayout implements BeforeEnterObserver {
 
     private String id;
