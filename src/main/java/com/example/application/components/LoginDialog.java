@@ -1,6 +1,5 @@
 package com.example.application.components;
 
-import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -9,19 +8,15 @@ import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-
-import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
-
 import com.vaadin.flow.server.VaadinSession;
-import com.vaadin.open.App;
-import elemental.json.Json;
 import elemental.json.JsonObject;
 import org.json.JSONObject;
+
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 public class LoginDialog extends Dialog {
 
@@ -70,6 +65,7 @@ public class LoginDialog extends Dialog {
 
                     // JSON-Antwort parsen und Tokens extrahieren
                     JSONObject jsonResponse = new JSONObject(responseBody);
+
                     String accessToken = jsonResponse.getString("access_token");
                     String refreshToken = jsonResponse.getString("refresh_token");
 
@@ -85,7 +81,7 @@ public class LoginDialog extends Dialog {
                     UI.getCurrent().getPage().reload(); // Neuladen der gesamten Seite
                 }
             } else {
-                try (Scanner scanner = new Scanner(connection.getErrorStream(), StandardCharsets.UTF_8.name())) {
+                try (Scanner scanner = new Scanner(connection.getInputStream(), StandardCharsets.UTF_8.name())) {
                     String errorBody = scanner.useDelimiter("\\A").next();
                     System.out.println("Error Response: " + errorBody);
 
