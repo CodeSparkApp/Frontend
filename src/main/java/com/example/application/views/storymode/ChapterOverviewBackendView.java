@@ -2,6 +2,7 @@ package com.example.application.views.storymode;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
@@ -11,6 +12,7 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -28,6 +30,8 @@ public class ChapterOverviewBackendView extends VerticalLayout implements Before
     public ChapterOverviewBackendView() {
         setSpacing(true);
         setPadding(true);
+        //Button startButton = new Button("Start Chapter", e -> openLesson(le));
+        Button previousButton = new Button("Back", e -> navigatePreviousPage());
     }
 
     @Override
@@ -99,13 +103,20 @@ public class ChapterOverviewBackendView extends VerticalLayout implements Before
     }
 
     private void renderChapterOverview() {
+        Div chapterContainer = new Div();
+        chapterContainer.getStyle()
+                .set("display", "flex")
+                .set("flex-wrap", "wrap")
+                .set("gap", "16px");
+
         Div chapterTitleDiv = new Div();
         chapterTitleDiv.setText("Kapitel: " + chapterTitle);
         add(chapterTitleDiv);
 
         for (Lesson lesson : lessons) {
-            add(createLessonCard(lesson));
+            chapterContainer.add(createLessonCard(lesson));
         }
+        add(chapterContainer);
     }
     private Div createLessonCard(Lesson lesson) {
         Div card = new Div();
@@ -119,34 +130,21 @@ public class ChapterOverviewBackendView extends VerticalLayout implements Before
                 .set("align-items", "center");
 
         H2 title = new H2(lesson.getTitle());
-        title.addClassName("lesson-title");
+        title.addClassName(LumoUtility.FontSize.MEDIUM);
 
         // Hier wird ein zufälliger Fortschritt verwendet, das könnte mit realen Daten ersetzt werden.
         ProgressBar progressBar = new ProgressBar(0, 100, Math.random() * 100);
         progressBar.setWidth("100%");
 
         card.add(title, progressBar);
-        card.addClickListener(event -> openLesson(lesson.getId(), lesson.getTitle()));
+        card.addClickListener(event -> openLesson(lesson.getId(), lesson.getTitle(), false));
         return card;
     }
-//    private Div createLessonButton(Lesson lesson) {
-//        Div lessonDiv = new Div();
-//        lessonDiv.setText(lesson.getTitle());
-//        lessonDiv.getStyle()
-//                .set("border", "1px solid #ccc")
-//                .set("border-radius", "8px")
-//                .set("padding", "16px")
-//                .set("width", "250px")
-//                .set("display", "flex")
-//                .set("flex-direction", "column")
-//                .set("align-items", "center");
-//
-//        lessonDiv.addClickListener(event -> openLesson(lesson.getId(), lesson.getTitle()));
-//        return lessonDiv;
-//    }
 
-    private void openLesson(String lessonId, String lessonTitle) {
-        getUI().ifPresent(ui -> ui.navigate("story-mode/lesson/" + lessonId + "/" + lessonTitle.replace(" ", "-")));
+    private void openLesson(String lessonId, String lessonTitle, Boolean fromStart) {
+        if (!fromStart) {
+            getUI().ifPresent(ui -> ui.navigate("story-mode/lesson/" + lessonId + "/" + lessonTitle.replace(" ", "-")));
+        }
     }
 
     // Klasse für Lektion
@@ -166,5 +164,9 @@ public class ChapterOverviewBackendView extends VerticalLayout implements Before
         public String getTitle() {
             return title;
         }
+    }
+
+    private void navigatePreviousPage() {
+        getUI().ifPresent(ui -> ui.navigate("/story-mode-backend"));
     }
 }
