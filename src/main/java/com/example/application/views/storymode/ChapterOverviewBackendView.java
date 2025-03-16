@@ -143,7 +143,7 @@ public class ChapterOverviewBackendView extends VerticalLayout implements Before
 
     private void openLesson(String lessonId, String lessonTitle, Boolean fromStart) {
         if (!fromStart) {
-            getUI().ifPresent(ui -> ui.navigate("story-mode/lesson/" + lessonId + "/" + lessonTitle.replace(" ", "-")));
+            getUI().ifPresent(ui -> ui.navigate("story-mode/lesson/" + lessonId ));
         }
     }
 
