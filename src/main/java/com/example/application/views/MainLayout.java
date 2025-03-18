@@ -8,7 +8,9 @@ import com.example.application.data.LoginorRegister;
 import com.example.application.data.User;
 import com.example.application.services.ExamTimerService;
 import com.example.application.services.TokenManager;
+import com.example.application.services.UserProfileService;
 import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -16,6 +18,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.SvgIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.Scroller;
@@ -48,7 +51,8 @@ public class MainLayout extends AppLayout {
         addHeaderContent();
         //VaadinSession.getCurrent().setAttribute("logged_in", false);
 
-    }
+
+        }
 
     private User fetchCurrentUser() {
         Set<String> badges = Set.of("🏆 Gold-Badge", "🥈 Silber-Badge");
@@ -85,26 +89,31 @@ public class MainLayout extends AppLayout {
 
         Span accountOptions = new Span(loginButton, or, registerButton);
 
-        Avatar avatar = new Avatar(currentUser.getUsername());
-        avatar.setImage(currentUser.getAvatar());
-        Span userName = new Span(currentUser.getUsername());
+//        Avatar avatar = new Avatar(currentUser.getUsername());
+//        avatar.setImage(currentUser.getAvatar());
+//        Span userName = new Span(currentUser.getUsername());
+
+        UserProfileService userProfileService = new UserProfileService();
+        Avatar avatar = new Avatar(userProfileService.getUsername());
+        userProfileService.fetchUserProfile();
+        if (userProfileService.getProfileImageUrl() != null){
+            avatar.setImage(userProfileService.getProfileImageUrl());
+        }
+        else {
+            avatar.setImage(currentUser.getAvatar());
+        }
+
+        Span userName = new Span(userProfileService.getUsername());
 
         HorizontalLayout profileLayout;
 
         if (TokenManager.isUserLoggedIn()) {
-            Boolean loggedIn = (Boolean) VaadinSession.getCurrent().getAttribute("logged_in");
-
-            if (loggedIn) {
                 profileLayout = new HorizontalLayout(avatar, userName);
                 profileLayout.setAlignItems(FlexComponent.Alignment.CENTER);
                 profileLayout.addClassNames(LumoUtility.Margin.Left.AUTO, LumoUtility.Padding.SMALL);
                 profileLayout.addClickListener(spanClickEvent -> getUserLoginStatus(LoginorRegister.LOGGED_IN));
-            } else {
-                profileLayout = new HorizontalLayout(accountOptions);
-                profileLayout.setAlignItems(FlexComponent.Alignment.CENTER);
-                profileLayout.addClassNames(LumoUtility.Margin.Left.AUTO, LumoUtility.Padding.SMALL);
-            }
         } else {
+            TokenManager.getAccessToken();
             profileLayout = new HorizontalLayout(accountOptions);
             profileLayout.setAlignItems(FlexComponent.Alignment.CENTER);
             profileLayout.addClassNames(LumoUtility.Margin.Left.AUTO, LumoUtility.Padding.SMALL);
