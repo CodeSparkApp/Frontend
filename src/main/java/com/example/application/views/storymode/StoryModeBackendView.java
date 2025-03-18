@@ -75,7 +75,8 @@ public class StoryModeBackendView extends VerticalLayout {
                 for (JsonNode chapterNode : jsonNode.get("chapters")) {
                     String id = chapterNode.get("id").asText();
                     String title = chapterNode.get("title").asText();
-                    chapters.add(new Chapter(id, title));
+                    String progress = chapterNode.get("progress").asText();
+                    chapters.add(new Chapter(id, title, progress));
                 }
             } else { // Fehlerbehandlung bei nicht erfolgreichem Status-Code
                 BufferedReader errorReader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
@@ -108,11 +109,19 @@ public class StoryModeBackendView extends VerticalLayout {
                 .set("display", "flex")
                 .set("flex-direction", "column")
                 .set("align-items", "center");
+                //.set("box-shadow", "inset 4px 0 0 hsl(0, 80%, 50%), inset -4px 0 0 hsl(120, 60%, 40%)");
 
         H2 title = new H2(chapter.getTitle());
         title.addClassName(LumoUtility.FontSize.MEDIUM);
+        double progress = 0.0;
 
-        ProgressBar progressBar = new ProgressBar(0, 100, Math.random() * 100);
+        try {
+            double doubleValue = Double.parseDouble(chapter.getProgress());
+            progress = doubleValue;  // Ausgabe: 123.45
+        } catch (NumberFormatException e) {
+            System.out.println("Ungültiger Progress!");
+        }
+        ProgressBar progressBar = new ProgressBar(0.0, 1.0, progress);
         progressBar.setWidth("100%");
 
         overAllProgress += progressBar.getValue();
@@ -133,10 +142,12 @@ public class StoryModeBackendView extends VerticalLayout {
     private static class Chapter {
         private final String id;
         private final String title;
+        private final String progress;
 
-        public Chapter(String id, String title) {
+        public Chapter(String id, String title, String progress) {
             this.id = id;
             this.title = title;
+            this.progress = progress;
         }
 
         public String getId() {
@@ -146,5 +157,6 @@ public class StoryModeBackendView extends VerticalLayout {
         public String getTitle() {
             return title;
         }
+        public String getProgress() {return progress;}
     }
 }

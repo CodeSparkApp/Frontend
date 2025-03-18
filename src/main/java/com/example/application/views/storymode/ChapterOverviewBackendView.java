@@ -78,8 +78,9 @@ public class ChapterOverviewBackendView extends VerticalLayout implements Before
                 for (JsonNode lessonNode : jsonNode.get("lessons")) {
                     String id = lessonNode.get("id").asText();
                     String title = lessonNode.get("title").asText();
+                    String state = lessonNode.get("state").asText();
                     chapterTitle = title;
-                    lessons.add(new Lesson(id, title));
+                    lessons.add(new Lesson(id, title, state));
                 }
             } else { // Fehlerbehandlung bei nicht erfolgreichem Status-Code
                 BufferedReader errorReader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
@@ -129,7 +130,14 @@ public class ChapterOverviewBackendView extends VerticalLayout implements Before
                 .set("flex-direction", "column")
                 .set("align-items", "center");
 
+
         H2 title = new H2(lesson.getTitle());
+        switch (lesson.getState()) {
+            case "SKIPPED": card.getStyle().set("border", "2px solid hsl(0, 80%, 50%)"); break;
+            case "UNATTEMPTED": card.getStyle().set("border", "2px solid #888"); break;
+            case "SOLVED": card.getStyle().set("border", "2px solid hsl(120, 60%, 40%)"); break;
+        }
+
         title.addClassName(LumoUtility.FontSize.MEDIUM);
 
         // Hier wird ein zufälliger Fortschritt verwendet, das könnte mit realen Daten ersetzt werden.
@@ -151,10 +159,12 @@ public class ChapterOverviewBackendView extends VerticalLayout implements Before
     private static class Lesson {
         private final String id;
         private final String title;
+        private final String state;
 
-        public Lesson(String id, String title) {
+        public Lesson(String id, String title, String state) {
             this.id = id;
             this.title = title;
+            this.state = state;
         }
 
         public String getId() {
@@ -163,6 +173,9 @@ public class ChapterOverviewBackendView extends VerticalLayout implements Before
 
         public String getTitle() {
             return title;
+        }
+        public String getState() {
+            return state;
         }
     }
 
