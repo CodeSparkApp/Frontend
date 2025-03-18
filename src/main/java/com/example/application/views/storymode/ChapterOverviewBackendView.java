@@ -23,7 +23,6 @@ import java.util.List;
 
 @Route("story-mode/chapter/:id")
 public class ChapterOverviewBackendView extends VerticalLayout implements BeforeEnterObserver {
-    private String chapterId;
     private String chapterTitle;
     private List<Lesson> lessons;
 
@@ -32,11 +31,12 @@ public class ChapterOverviewBackendView extends VerticalLayout implements Before
         setPadding(true);
         //Button startButton = new Button("Start Chapter", e -> openLesson(le));
         Button previousButton = new Button("Back", e -> navigatePreviousPage());
+        add(previousButton);
     }
 
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
-        chapterId = event.getRouteParameters().get("id").orElse("");
+        String chapterId = event.getRouteParameters().get("id").orElse("");
         //chapterTitle = event.getRouteParameters().get("title").orElse("");
 
         if (!chapterId.isEmpty()) {
