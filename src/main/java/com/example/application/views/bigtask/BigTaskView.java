@@ -6,7 +6,6 @@ import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.progressbar.ProgressBar;
-import com.vaadin.flow.component.richtexteditor.RichTextEditor;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
@@ -20,7 +19,7 @@ public class BigTaskView extends Composite<VerticalLayout> {
         VerticalLayout layoutColumn2 = new VerticalLayout();
         H2 h2 = new H2();
         Paragraph textLarge = new Paragraph();
-        RichTextEditor richTextEditor = new RichTextEditor();
+
         TextArea textArea = new TextArea();
         Paragraph textSmall = new Paragraph();
         ProgressBar progressBar = new ProgressBar();
@@ -37,7 +36,6 @@ public class BigTaskView extends Composite<VerticalLayout> {
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
         textLarge.setWidth("100%");
         textLarge.getStyle().set("font-size", "var(--lumo-font-size-xl)");
-        richTextEditor.setWidth("100%");
         textArea.setLabel("Text area");
         textArea.setWidth("100%");
         textSmall.setText(
@@ -51,7 +49,6 @@ public class BigTaskView extends Composite<VerticalLayout> {
         getContent().add(layoutColumn2);
         layoutColumn2.add(h2);
         layoutColumn2.add(textLarge);
-        layoutColumn2.add(richTextEditor);
         layoutColumn2.add(textArea);
         getContent().add(textSmall);
         getContent().add(progressBar);
