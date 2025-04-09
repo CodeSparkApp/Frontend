@@ -36,7 +36,7 @@ public class UserProfileService {
         String accessToken = (String) session.getAttribute("access_token");
 
         if (accessToken == null || accessToken.isEmpty()) {
-            LOGGER.severe("Kein Access Token in der Session gefunden.");
+            LOGGER.log(Level.WARNING, "Kein Access Token in der Session gefunden.");
             return false;
         }
 

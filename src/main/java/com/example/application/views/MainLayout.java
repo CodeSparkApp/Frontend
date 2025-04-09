@@ -9,8 +9,6 @@ import com.example.application.data.User;
 import com.example.application.services.ExamTimerService;
 import com.example.application.services.TokenManager;
 import com.example.application.services.UserProfileService;
-import com.vaadin.flow.component.Text;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -18,14 +16,12 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.SvgIcon;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.Layout;
-import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.server.menu.MenuConfiguration;
 import com.vaadin.flow.server.menu.MenuEntry;
@@ -94,8 +90,9 @@ public class MainLayout extends AppLayout {
 //        Span userName = new Span(currentUser.getUsername());
 
         UserProfileService userProfileService = new UserProfileService();
-        Avatar avatar = new Avatar(userProfileService.getUsername());
+
         userProfileService.fetchUserProfile();
+        Avatar avatar = new Avatar(userProfileService.getUsername());
         if (userProfileService.getProfileImageUrl() != null){
             avatar.setImage(userProfileService.getProfileImageUrl());
         }
