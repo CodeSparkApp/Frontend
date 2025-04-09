@@ -52,7 +52,7 @@ public class ChapterBackendView extends VerticalLayout implements BeforeEnterObs
 
     private void loadLessonDetails() {
         // Die API-URL für den GET-Request mit lessonId
-        String apiUrl = "https://codespark.up.railway.app/api/v1/lesson/" + lessonId;
+        String apiUrl = "https://codespark-api.up.railway.app/api/v1/lesson/" + lessonId;
 
         try {
             VaadinSession session = VaadinSession.getCurrent();

@@ -49,7 +49,7 @@ public class StoryModeBackendView extends VerticalLayout {
 
     private List<Chapter> fetchChapters() {
         List<Chapter> chapters = new ArrayList<>();
-        String apiUrl = "https://codespark.up.railway.app/api/v1/chapter/overview";
+        String apiUrl = "https://codespark-api.up.railway.app/api/v1/chapter/overview";
 
         try {
 

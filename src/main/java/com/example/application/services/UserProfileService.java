@@ -25,7 +25,7 @@ public class UserProfileService {
      * @return true, wenn der Abruf erfolgreich war, false bei Fehlern.
      */
     public boolean fetchUserProfile() {
-        String apiUrl = "https://codespark.up.railway.app/api/v1/account/profile";
+        String apiUrl = "https://codespark-api.up.railway.app/api/v1/account/profile";
         VaadinSession session = VaadinSession.getCurrent();
 
         if (session == null) {

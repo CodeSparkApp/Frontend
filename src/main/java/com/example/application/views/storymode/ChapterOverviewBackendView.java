@@ -50,7 +50,7 @@ public class ChapterOverviewBackendView extends VerticalLayout implements Before
 
     private List<Lesson> fetchLessonsForChapter(String chapterId) {
         List<Lesson> lessons = new ArrayList<>();
-        String apiUrl = "https://codespark.up.railway.app/api/v1/chapter/" + chapterId + "/lessons";
+        String apiUrl = "https://codespark-api.up.railway.app/api/v1/chapter/" + chapterId + "/lessons";
 
         try {
             VaadinSession session = VaadinSession.getCurrent();

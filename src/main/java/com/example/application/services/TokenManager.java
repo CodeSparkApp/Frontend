@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TokenManager {
-    private static final String REFRESH_URL = "https://codespark.up.railway.app/api/v1/auth/refresh";
+    private static final String REFRESH_URL = "https://codespark-api.up.railway.app/api/v1/auth/refresh";
 
     public static String getAccessToken() {
         String accessToken = (String) VaadinSession.getCurrent().getAttribute("access_token");
@@ -95,7 +95,7 @@ public class TokenManager {
 
     private static boolean isTokenExpired(String token) {
 
-        String apiUrl = "https://codespark.up.railway.app/api/v1/chapter/overview";
+        String apiUrl = "https://codespark-api.up.railway.app/api/v1/chapter/overview";
 
         try {
 

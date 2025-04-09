@@ -34,7 +34,7 @@ public class RegisterDialog extends Dialog {
 
     private void registerUser(String username, String email, String password) {
         try {
-            URL url = new URL("https://codespark.up.railway.app/api/v1/account/register");
+            URL url = new URL("https://codespark-api.up.railway.app/api/v1/account/register");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json; utf-8");

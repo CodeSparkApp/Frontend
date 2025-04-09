@@ -25,7 +25,7 @@ import java.util.Scanner;
 @PageTitle("Chat Input Dialog")
 @Route("chat-input")
 public class ChatInputDialog extends Dialog {
-    private static final String API_URL = "https://codespark.up.railway.app/api/v1/openai/prompt-stream";
+    private static final String API_URL = "https://codespark-api.up.railway.app/api/v1/openai/prompt-stream";
     private final MessageList messageList;
     private final List<MessageListItem> messages = new ArrayList<>();
 

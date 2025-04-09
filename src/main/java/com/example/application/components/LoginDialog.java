@@ -36,7 +36,7 @@ public class LoginDialog extends Dialog {
 
     private void loginUser(String usernameOrEmail, String password) {
         try {
-            URL url = new URL("https://codespark.up.railway.app/api/v1/auth/login");
+            URL url = new URL("https://codespark-api.up.railway.app/api/v1/auth/login");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json; utf-8");
