@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y curl && \
 COPY . .
 
 # Run full Vaadin frontend + backend build
-RUN mvn clean install vaadin:prepare-frontend vaadin:build-frontend -DskipTests
+RUN mvn vaadin:prepare-frontend vaadin:build-frontend && mvn clean install -DskipTests
 
 # Use JRE image to run the application
 FROM eclipse-temurin:21-jre
