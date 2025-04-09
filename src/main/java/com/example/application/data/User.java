@@ -1,29 +1,20 @@
 package com.example.application.data;
 
-//import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Entity
 public class User {
-
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
     private String email;
     private String avatar; // Optional, als URL zu einem Bild gespeichert.
 
-    //@Lob
     private String storyProgress; // JSON oder String für den Story Mode Fortschritt.
 
-    //@Lob
     private String learningProgress; // JSON oder String für den Learning Mode Fortschritt.
 
-    //@ElementCollection
     private Set<String> badges = new HashSet<>(); // Set von Badges.
 
     private LocalDate examDate; // Datum der Prüfung.
