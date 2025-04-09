@@ -1,11 +1,17 @@
 # Use an official Maven image to build the project
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 
+# Install Node.js (needed by Vaadin for frontend build)
+RUN apt-get update && apt-get install -y curl && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    node -v && npm -v
+
 # Copy all the code into the image
 COPY . .
 
-# Build the Spring Boot application
-RUN mvn clean package -DskipTests
+# Run full Vaadin frontend + backend build
+RUN mvn clean install -Pproduction -DskipTests
 
 # Use JRE image to run the application
 FROM eclipse-temurin:21-jre
